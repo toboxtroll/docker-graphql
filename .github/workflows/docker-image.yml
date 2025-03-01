@@ -30,11 +30,11 @@ jobs:
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER}}
         DOCKER_PASS: ${{ secrets.DOCKER_PASS}}
-        NEW_VERSION: ${{ step.version.outputs.version }}
+        NEW_VERSION: ${{ stepS.version.outputs.version }}
       run: |
         echo "Iniciando Login"
         docker login -u $DOCKER_USER -p $DOCKER_PASS
-        echo "New Versioin $NEW_VERSION!!!!"
+        echo "New Version $NEW_VERSION!!!!"
         echo "Fin del Login"
         
     - name: Build Docker Image
