@@ -30,20 +30,22 @@ jobs:
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER}}
         DOCKER_PASS: ${{ secrets.DOCKER_PASS}}
-        NEW_VERSION: ${{ stepS.version.outputs.version }}
       run: |
         echo "Iniciando Login"
         docker login -u $DOCKER_USER -p $DOCKER_PASS
-        echo "New Version $NEW_VERSION!!!!"
         echo "Fin del Login"
         
     - name: Build Docker Image
+      env:
+        NEW_VERSION: ${{ stepS.version.outputs.version }}
       run: |
-        docker build -t toboxtroll/docker-graphql:0.0.1 .
+        docker build -t toboxtroll/docker-graphql:$NEW_VERSION .
 
     - name: Push Docker Image
+      env:
+        NEW_VERSION: ${{ stepS.version.outputs.version }}
       run: |
-        docker push toboxtroll/docker-graphql:0.0.1
+        docker push toboxtroll/docker-graphql:$NEW_VERSION
 
    # - name: Build the Docker image
    #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
